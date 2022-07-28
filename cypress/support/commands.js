@@ -63,3 +63,65 @@ Cypress.Commands.add('postCharacter', function (payload) {
         return response;
     });
 });
+
+// GET /characters
+Cypress.Commands.add('getCharacters', function () {
+    cy.api({
+        method: 'GET',
+        url: '/characters',
+        headers: {
+            Authorization: Cypress.env('token')
+        },
+        failOnStatusCode: false
+    }).then(function (response) {
+        return response;
+    });
+});
+
+// GET /characters/<id>
+Cypress.Commands.add('getCharacterById', function (character_id) {
+    cy.api({
+        method: 'GET',
+        url: '/characters/' + character_id,
+        headers: {
+            Authorization: Cypress.env('token')
+        },
+        failOnStatusCode: false
+    }).then(function (response) {
+        return response;
+    });
+});
+
+// DELETE /characters/<id>
+Cypress.Commands.add('deleteCharacterById', function (character_id) {
+    cy.api({
+        method: 'DELETE',
+        url: '/characters/' + character_id,
+        headers: {
+            Authorization: Cypress.env('token')
+        },
+        failOnStatusCode: false
+    }).then(function (response) {
+        return response;
+    });
+});
+
+Cypress.Commands.add('populateCharacters', function (chars) {
+    chars.forEach(function (char) {
+        cy.postCharacter(char);
+    });
+});
+
+Cypress.Commands.add('searchCharacter', function (charName) {
+    cy.api({
+        method: 'GET',
+        url: '/characters',
+        qs: {name: charName},
+        headers: {
+            Authorization: Cypress.env('token')
+        },
+        failOnStatusCode: false
+    }).then(function (response) {
+        return response;
+    });
+});
