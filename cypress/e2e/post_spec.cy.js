@@ -2,11 +2,6 @@
 
 describe('POST / characters', function () {
 
-    before(function () {
-        cy.back2ThePast();
-        cy.setToken();
-    });
-
     it('deve cadastrar um personagem', function () {
 
         const character = {
@@ -52,9 +47,6 @@ describe('POST / characters', function () {
                     expect(response.status).to.eql(400);
                     expect(response.body.error).to.eql('Duplicate character');
                 });
-
         });
-
     });
-
 });
